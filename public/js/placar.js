@@ -50,7 +50,7 @@ function removeLinha() {
     linha.fadeOut(1000);
 
     setInterval(function(){
-    linha.remove();
+        linha.remove();
     }, 1000);
 }
 
@@ -58,3 +58,4 @@ function mostraPlacar(){
     $(".placar").stop().slideToggle(600);
 
 }
+
