@@ -1,6 +1,7 @@
 $("#botao-placar").click(mostraPlacar);
+$("#botao-sync").click(sincronizaPlacar);
 
-function inserePlacar() {
+function inserePlacar(){
     var corpoTabela = $(".placar").find("tbody");
     var usuario = "Douglas"
     var numPalavras = $("#contador-palavras").text();
@@ -24,7 +25,7 @@ function scrollPlacar(){
     }, 1000);
 }
 
-function novaLinha(usuario, palavras) {
+function novaLinha(usuario, palavras){
     var linha = $("<tr>");
     var colunaUsuario = $("<td>").text(usuario);
     var colunaPalavras = $("<td>").text(palavras);
@@ -44,7 +45,7 @@ function novaLinha(usuario, palavras) {
     return linha;
 }
 
-function removeLinha() {
+function removeLinha(){
     event.preventDefault();
     var linha = $(this).parent().parent();
     linha.fadeOut(1000);
@@ -59,3 +60,31 @@ function mostraPlacar(){
 
 }
 
+function sincronizaPlacar(){
+    placar = [];
+    var linhas = $("tbody>tr");
+    linhas.each(function(){
+        var usuario = $(this).find("td:nth-child(1)").text();
+        var palavras = $(this).find("td:nth-child(2)").text();
+        
+        var score = {
+            usuario: usuario,
+            pontos: palavras
+        };
+         
+        placar.push(score);
+    });
+
+    var dados = {
+        placar : placar
+    };
+
+    $.post("http://localhost:3000/placar", dados);
+}
+
+function atualizaPlacar(){
+    $.get("http://localhost:3000/placar", function(data){
+        console.log(data);
+
+    });
+}
