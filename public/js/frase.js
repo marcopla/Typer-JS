@@ -2,6 +2,7 @@ $("#botao-frase").click(fraseAleatoria);
 $("#botao-frase-id").click(buscaFrase);
 
 function fraseAleatoria(){
+    console.log("entrei aqui");
     $("#spinner").toggle();
     $.get("http://localhost:3000/frases", trocaFraseAleatoria)
     .fail(function(){
